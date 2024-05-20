@@ -92,7 +92,9 @@ def extract_data_from_product_page(driver, url : Optional[str] = None):
         )
     all_text = driver.execute_script("return document.body.innerText;")
     split_top_off = all_text.split('customerservice@partselect.com')
-    relevant_text = split_top_off[1]
-    return relevant_text
+    if len(split_top_off) > 1:
+        relevant_text = split_top_off[1]
+        return relevant_text
+    return all_text
 
 
