@@ -5,5 +5,6 @@ data = {
     "message": "Does PartSelect generally have good fridges?",
 }
 
-resp = requests.post('http://0.0.0.0:8080/chat/', data=json.dumps(data))
+HEROKU_URL = "https://quiet-escarpment-07624-06cccd4108f2.herokuapp.com/chat/"
+resp = requests.post(HEROKU_URL, data=json.dumps(data))
 print(resp.text)

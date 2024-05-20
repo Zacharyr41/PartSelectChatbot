@@ -4,7 +4,9 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 import time
+import os
 
 from enum import Enum
 from typing import Optional
@@ -17,7 +19,21 @@ class PageType(Enum):
 
 
 def get_driver():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    # Check if running on Heroku
+    if "DYNO" in os.environ:
+        # Path settings for Heroku
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
+    else:
+        # Local settings
+        # Make sure to have chromedriver in your PATH or specify the path to the executable
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
     return driver
 
 
