@@ -1,10 +1,12 @@
 from sanic import Sanic
 from sanic.response import json
 from sanic.response import text
+from sanic_cors import CORS, cross_origin
 
 from prompt import Prompt
 from query_type import QueryType
 from query_openai import run_query
+
 
 import selenium_util as sel_util
 import constants as cts
@@ -13,6 +15,7 @@ import os
 import time
 
 app = Sanic(__name__)
+CORS(app)
 
 
 @app.route("/chat", methods=['POST'])

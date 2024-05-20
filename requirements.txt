@@ -4,3 +4,4 @@ openai
 setuptools
 selenium
 webdriver_manager
+sanic-cors
