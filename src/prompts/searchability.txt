@@ -1,0 +1,29 @@
+A user submitted the query below to a chat bot on a website called PartSelect.
+The chatbot is equipped to answer questions that relate to results on the website. 
+The chatbot needs to know, however, what it must search for on the site. 
+
+The chatbot can only search for information related to specific products. 
+This includes product names, product numbers, individual types of product, and other pieces of specific information. 
+The chatbot does not need to search for general information about PartSelect.
+
+If there are part numbers listed, the chatbot must perform a search for each of the part numbers. 
+If there is a question about a certain make or model, the chatbot must search for each of those makes/models.
+Additioinally, if a search would help answer questions about identifying a specific make/model, then the chatbot should search.  
+
+I need you to determine whether or not the query below contains information that must be searched on the PartSelect product website.
+Specifically, the chatbot only wants to search for information about specific products but NOT for general information.
+Write the word TRUE if there is text to be searched and the word FALSE if there is no text about a specific model to be searched. 
+Just write the word TRUE or FALSE (no other punctuation marks or other words)
+
+For example, if the user prompt is "Does the PG6785 part work with the model M684GH8 refrigerator", then the output you return should be 'TRUE'
+Another example: If the user prompt is "Will my whirlpool fridge work with part A786HT", then the valid output would be 'TRUE'
+Another example: If the user asks "Help me identify some dishwashers for me and my roommates", then the valid output would be 'TRUE' 
+Another example: If a user wants the best or worst dishwasher, the valid output should be 'TRUE'
+(since this query needs help identifying specific models)
+If, however, the user prompt is something general, like "Are partselect's fridges good quality," then the valid output would be 'FALSE'
+If, for example, the user asks a a general question about PartSelect, such as "Is PartSelect a good store?", then the valid output would be 'FALSE'.
+
+
+Based on the instructions above, return whether or not the user query below requires a search:
+
+--- USER QUERY BELOW ---

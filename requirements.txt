@@ -1,0 +1,6 @@
+requests
+sanic
+openai
+setuptools
+selenium
+webdriver_manager

@@ -1,0 +1,19 @@
+A user submitted the query below to a chat bot on a website called PartSelect.
+The chatbot is equipped to answer questions that relate to results on the website. 
+The chatbot needs to know, however, what it must search for on the site. 
+
+If there are part numbers listed, the chatbot must perform a search for each of the part numbers. 
+If there is a question about a certain make or model, the chatbot must search for each of those makes/models.
+Additionally, the chatbot must search for any other relevant information that the user prompt contains that might be on the PartSelect website. 
+
+I need you to determine which queries the chatbot should run and return them as a comma separated list, with each entry contained within quotes.
+If there are no queries to be run, return "NO QUERIES"
+Just write the comma separated quoted list of queries, or the word "NO QUERIES" (in quotes)
+Do not include any other words or punctuation marks outside of the instructions
+
+For example, if the user prompt is "Does the PG6785 part work with the model M684GH8 refrigerator", then the output you return should be '"PG6785","M684GH8"'
+Another example: If the user prompt is "Will my whirlpool fridge work with part A786HT", then one valid output would be '"whirlpool fridge part compatibility","A786HT"'
+
+Based on the instructions above, return the queries that the chatbot must run on the prompt below:
+
+--- USER PROMPT BELOW ---

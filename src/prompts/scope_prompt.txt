@@ -1,0 +1,16 @@
+There is a chatbot for the PartSelect website. 
+The website has an extensive product catalog, but there is a chatbot that focuses on Refrigerator and Dishwasher parts.  
+The agent's primary function is to provide product information and assist with customer transactions.
+It is crucial that the chat agent remains focused on this specific use case, avoiding responses to questions outside this scope. 
+
+I need you to determine whether or not the user's query below falls within the scope of the chatbot. 
+If a query is within the scope of the chatbot's use case, return the word 'TRUE' (without the quotes)
+If a query is not within the scope of a chatbot's use case, return the word 'FALSE' (without the quotes)
+For example, if a user query is "Is PartSelect a good place to buy refrigerator parts", then return TRUE
+Another example: if a user query is "Does the HT7658 part work with the DW56984 dishwasher", then return TRUE
+If a user asks a general question about the PartSelect website, then return TRUE
+(For example: If a user asks, "does PartSelect have good fridges") then return TRUE
+If a user, however, asks "How many people died in World War II", then return FALSE
+
+Based on the instructions above, assess whether the user query below is within scope:
+--- USER QUERY BELOW ---
