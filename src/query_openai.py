@@ -24,7 +24,7 @@ def qt_to_filepath(qt: QueryType) -> str:
     return rv
 
 
-def run_query(query_text: str, qt: QueryType) -> str:
+async def run_query(query_text: str, qt: QueryType) -> str:
     prompt_filename = qt_to_filepath(qt=qt)
     with open(prompt_filename, "r") as prompt_file:
         prompt = prompt_file.read()

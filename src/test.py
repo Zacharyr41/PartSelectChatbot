@@ -10,110 +10,116 @@ from selenium_util import (
     extract_data_from_product_page,
     extract_links_from_results,
 )
+from config import get_config_env
+import os
 
 
-class TestRunQuery(unittest.TestCase):
-    def test_run_query_returns_true_scope(self):
-        result = run_query(
+class TestRunQuery(unittest.IsolatedAsyncioTestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        os.environ["OPENAI_API_KEY"] = get_config_env()['OPENAI_API_KEY']
+    
+    async def test_run_query_returns_true_scope(self):
+        result = await run_query(
             "Are PartSelect dishwashers worth the money?", QueryType.IN_SCOPE
         )
         result_content = result.content
         self.assertEqual(result_content, "TRUE")
 
-    def test_run_query_returns_true_scope_two(self):
-        result = run_query(
+    async def test_run_query_returns_true_scope_two(self):
+        result = await run_query(
             "Does the D678HY part work with most PartSelect dishwashers",
             QueryType.IN_SCOPE,
         )
         result_content = result.content
         self.assertEqual(result_content, "TRUE")
 
-    def test_run_query_returns_false_scope(self):
-        result = run_query(
+    async def test_run_query_returns_false_scope(self):
+        result = await run_query(
             "What is the time complexity of quicksort?", QueryType.IN_SCOPE
         )
         result_content = result.content
         self.assertEqual(result_content, "FALSE")
 
-    def test_run_query_return_true_searchable(self):
-        result = run_query(
+    async def test_run_query_return_true_searchable(self):
+        result = await run_query(
             "Is the P67YH65 part compatible with the R874 refrigerator?",
             QueryType.IN_SCOPE,
         )
         result_content = result.content
         self.assertEqual(result_content, "TRUE")
 
-    def test_run_query_return_false_searchable(self):
-        result = run_query(
+    async def test_run_query_return_false_searchable(self):
+        result = await run_query(
             "Does PartSelect generally have good dishwashers?", QueryType.IS_SEARCHABLE
         )
         result_content = result.content
         self.assertEqual(result_content, "FALSE")
 
-    def test_run_query_return_false_searchable_two(self):
-        result = run_query(
+    async def test_run_query_return_false_searchable_two(self):
+        result = await run_query(
             "Should I buy things from PartSelect?", QueryType.IS_SEARCHABLE
         )
         result_content = result.content
         self.assertEqual(result_content, "FALSE")
 
-    def test_run_query_return_true_searchable_identify_models(self):
-        result = run_query(
+    async def test_run_query_return_true_searchable_identify_models(self):
+        result = await run_query(
             "What are some large fridges from PartSelect that I can buy?",
             QueryType.IS_SEARCHABLE,
         )
         result_content = result.content
         self.assertEqual(result_content, "TRUE")
 
-    def test_run_query_return_true_searchable_identify_models_two(self):
-        result = run_query(
+    async def test_run_query_return_true_searchable_identify_models_two(self):
+        result = await run_query(
             "What is the best fridge and the best dishwasher from part select?",
             QueryType.IS_SEARCHABLE,
         )
         result_content = result.content
         self.assertEqual(result_content, "TRUE")
 
-    def test_get_search_queries(self):
-        result = run_query(
+    async def test_get_search_queries(self):
+        result = await run_query(
             "Which part is more expensive: P786HG or P897YT?", QueryType.SEARCHABLE_TEXT
         )
         result_content = result.content
         query_lst = result_content.split(",")
         self.assertEqual(['"P786HG"', '"P897YT"'], query_lst)
 
-    def test_get_search_queries(self):
-        result = run_query(
+    async def test_get_search_queries(self):
+        result = await run_query(
             "What is the best fridge on partselect?", QueryType.SEARCHABLE_TEXT
         )
         result_content = result.content
         query_lst = result_content.split(",")
         self.assertEqual(['"best fridge"'], query_lst)
 
-    def test_get_driver(self):
+    async def test_get_driver(self):
         driver = get_driver()
         driver.quit()
 
-    def test_navigate_to_main_page(self):
+    async def test_navigate_to_main_page(self):
         driver = get_driver()
         success = navigate_to_url(driver=driver)
         driver.quit()
         self.assertEqual(success, True)
 
-    def test_perform_search_part_number(self, part_number="PS346995"):
+    async def test_perform_search_part_number(self, part_number="PS346995"):
         driver = get_driver()
         navigate_to_url(driver=driver)
         success = perform_search(driver=driver, search_term=part_number)
         driver.quit()
         self.assertEqual(success, True)
 
-    def test_perform_search_general_query(self, search_query="fridge parts"):
+    async def test_perform_search_general_query(self, search_query="fridge parts"):
         driver = get_driver()
         navigate_to_url(driver=driver)
         success = perform_search(driver=driver, search_term=search_query)
         driver.quit()
         self.assertEqual(success, True)
 
-    def test_page_type_results(self):
+    async def test_page_type_results(self):
         driver = get_driver()
         navigate_to_url(driver=driver)
         search_term = "fridge parts"
@@ -122,7 +128,7 @@ class TestRunQuery(unittest.TestCase):
         self.assertEqual(page_type, PageType.RESULTS)
         driver.quit()
 
-    def test_page_type_product(self):
+    async def test_page_type_product(self):
         driver = get_driver()
         navigate_to_url(driver=driver)
         search_term = "PS346995"
@@ -131,7 +137,7 @@ class TestRunQuery(unittest.TestCase):
         self.assertEqual(page_type, PageType.PRODUCT)
         driver.quit()
 
-    def test_extract_links(self):
+    async def test_extract_links(self):
         driver = get_driver()
         navigate_to_url(driver=driver)
         search_term = "fridge parts"
@@ -146,7 +152,7 @@ class TestRunQuery(unittest.TestCase):
         self.assertEqual(urls, EXPECTED)
         driver.quit()
 
-    def test_extract_data(self):
+    async def test_extract_data(self):
         driver = get_driver()
         test_url = "https://www.partselect.com/PS12364199-Frigidaire-242126602-Refrigerator-Door-Shelf-Bin.htm?SourceCode=18"
         result_text = extract_data_from_product_page(driver=driver, url=test_url)

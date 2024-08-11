@@ -18,6 +18,11 @@ app = Sanic(__name__)
 CORS(app)
 
 
+@app.route("/", methods=["GET"])
+async def home(request):
+    return text("Hello World!")
+
+
 @app.route("/chat", methods=["POST"])
 async def chat(request):
     """
@@ -41,13 +46,15 @@ async def chat(request):
     )
 
     # Prompt in scope
-    in_scope = run_query(query_text=user_message, qt=QueryType.IN_SCOPE)
+    in_scope = await run_query(query_text=user_message, qt=QueryType.IN_SCOPE)
     print("IN SCOPE: ", in_scope)
     if in_scope.content == "TRUE":
         cur_prompt.in_scope = True
 
     # Prompt has searchable text
-    has_searchable_text = run_query(query_text=user_message, qt=QueryType.IS_SEARCHABLE)
+    has_searchable_text = await run_query(
+        query_text=user_message, qt=QueryType.IS_SEARCHABLE
+    )
     if has_searchable_text.content == "TRUE":
         cur_prompt.is_searchable = True
 
@@ -56,7 +63,7 @@ async def chat(request):
     search_queries = []
     if is_searchable:
         print("Generating search queries")
-        searchable_text = run_query(
+        searchable_text = await run_query(
             query_text=user_message, qt=QueryType.SEARCHABLE_TEXT
         )
         searchable_text = searchable_text.content
@@ -95,7 +102,7 @@ async def chat(request):
     answer_prompt_text += "\n ** USER QUERY BELOW ** "
     answer_prompt_text += user_message
 
-    chat_response = run_query(query_text=answer_prompt_text, qt=QueryType.MAIN)
+    chat_response = await run_query(query_text=answer_prompt_text, qt=QueryType.MAIN)
     result = chat_response.content
     print("Final Result: ", result)
 
