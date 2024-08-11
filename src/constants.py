@@ -8,3 +8,5 @@ SEARCHABILITY_NAME = "searchability.txt"
 GPT_MODEL = "gpt-4-turbo"
 
 PART_SELECT_URL = "https://www.partselect.com/"
+
+HEROKU_URL = "https://quiet-escarpment-07624-06cccd4108f2.herokuapp.com/chat/"
