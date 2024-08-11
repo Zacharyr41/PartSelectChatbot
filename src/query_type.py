@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class QueryType(Enum):
     MAIN = 1
     IS_SEARCHABLE = 2

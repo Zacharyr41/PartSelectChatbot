@@ -1,7 +1,7 @@
 import requests
 import json
 from constants import HEROKU_URL
- 
+
 data = {
     "message": "Does PartSelect generally have good fridges?",
 }

@@ -1,5 +1,13 @@
 class Prompt:
-    def __init__(self, prompt_text: str, is_searchable: bool, searchable_text: str, is_user_prompt: bool, in_scope: bool, contains_context: bool):
+    def __init__(
+        self,
+        prompt_text: str,
+        is_searchable: bool,
+        searchable_text: str,
+        is_user_prompt: bool,
+        in_scope: bool,
+        contains_context: bool,
+    ):
         self._prompt_text = prompt_text
         self._is_searchable = is_searchable
         self._searchable_text = searchable_text
@@ -58,11 +66,13 @@ class Prompt:
     @property
     def contains_context(self):
         return self._contains_context
-    
+
     @contains_context.setter
     def contains_context(self, value: bool):
         self.contains_context = value
-    
+
     def __str__(self):
-        return f"Prompt(prompt_text='{self._prompt_text}', is_searchable={self._is_searchable}, " \
-               f"searchable_text='{self._searchable_text}', is_user_prompt={self._is_user_prompt}, in_scope={self._in_scope})"
+        return (
+            f"Prompt(prompt_text='{self._prompt_text}', is_searchable={self._is_searchable}, "
+            f"searchable_text='{self._searchable_text}', is_user_prompt={self._is_user_prompt}, in_scope={self._in_scope})"
+        )

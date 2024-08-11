@@ -74,27 +74,24 @@ def determine_page_type(driver) -> PageType:
 
 def extract_links_from_results(driver):
     try:
-        result_links = driver.find_elements(
-            By.CSS_SELECTOR, ".nf__part__detail__title")
+        result_links = driver.find_elements(By.CSS_SELECTOR, ".nf__part__detail__title")
         num_urls = min(3, len(result_links))
-        urls = [link.get_attribute('href') for link in result_links[:num_urls]]
+        urls = [link.get_attribute("href") for link in result_links[:num_urls]]
     except:
         return []
 
     return urls
 
 
-def extract_data_from_product_page(driver, url : Optional[str] = None):
+def extract_data_from_product_page(driver, url: Optional[str] = None):
     if url:
         driver.get(url)
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
     all_text = driver.execute_script("return document.body.innerText;")
-    split_top_off = all_text.split('customerservice@partselect.com')
+    split_top_off = all_text.split("customerservice@partselect.com")
     if len(split_top_off) > 1:
         relevant_text = split_top_off[1]
         return relevant_text
     return all_text
-
-
