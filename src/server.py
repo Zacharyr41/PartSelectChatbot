@@ -66,6 +66,7 @@ async def chat(request):
         searchable_text = await run_query(
             query_text=user_message, qt=QueryType.SEARCHABLE_TEXT
         )
+        print("Generated Search queries: ", searchable_text)
         searchable_text = searchable_text.content
         cur_prompt.searchable_text = searchable_text
         queries = searchable_text.split(",")
@@ -74,10 +75,14 @@ async def chat(request):
     if not cur_prompt.in_scope:
         return json({"result": "Your question is out of scope. Please try again"})
     # Task 3: Run search and retrieve context information (Selenium)
+    print("Creating Driver...")
     driver = sel_util.get_driver()
+    print("Driver Created")
     sel_util.navigate_to_url(driver=driver, url=cts.PART_SELECT_URL)
+    print("Navigated to URL")
     search_results = []
     for query in search_queries:
+        print("Searching for term: ", query)
         sel_util.perform_search(driver=driver, search_term=query)
         page_type = sel_util.determine_page_type(driver=driver)
         if page_type == sel_util.PageType.PRODUCT:
@@ -102,6 +107,7 @@ async def chat(request):
     answer_prompt_text += "\n ** USER QUERY BELOW ** "
     answer_prompt_text += user_message
 
+    print("Querying for answer")
     chat_response = await run_query(query_text=answer_prompt_text, qt=QueryType.MAIN)
     result = chat_response.content
     print("Final Result: ", result)
