@@ -40,7 +40,7 @@ def get_driver():
 def navigate_to_url(driver, url=cts.PART_SELECT_URL):
     try:
         driver.get(url)
-        time.sleep(2)
+        time.sleep(1)
     except:
         return False
     return True
@@ -52,7 +52,7 @@ def perform_search(driver, search_term):
         search_input.send_keys(search_term)
         search_button = driver.find_element(By.CLASS_NAME, "btn--teal")
         search_button.click()
-        time.sleep(4)
+        time.sleep(1)
     except:
         return False
 

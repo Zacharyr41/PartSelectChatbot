@@ -86,6 +86,7 @@ async def chat(request):
         sel_util.perform_search(driver=driver, search_term=query)
         page_type = sel_util.determine_page_type(driver=driver)
         if page_type == sel_util.PageType.PRODUCT:
+            print("Product Page")
             res_txt = sel_util.extract_data_from_product_page(driver=driver)
             search_results.append(res_txt)
             continue
@@ -93,9 +94,10 @@ async def chat(request):
         # Page type is RESULTS
         urls_to_query = sel_util.extract_links_from_results(driver=driver)
         for url in urls_to_query:
+            print("Results Page")
             res_txt = sel_util.extract_data_from_product_page(driver=driver, url=url)
             search_results.append(res_txt)
-            time.sleep(3)
+            time.sleep(1)
     driver.quit()
 
     # Task 4: Integrate into context prompt
