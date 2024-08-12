@@ -15,4 +15,4 @@ If a user, however, asks "How many people died in World War II", then return FAL
 If a user asks "does part select have good fridges," and the chatbot replies, and THEN the user replies "thanks", then return TRUE
 
 Based on the instructions above, assess whether the user query below is within scope:
---- USER QUERY AND CHAT HISTORY BELOW ---
+--- USER CHAT HISTORY BELOW ---

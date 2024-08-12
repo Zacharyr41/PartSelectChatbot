@@ -33,7 +33,7 @@ async def chat(request):
     """
     request_json = request.json
     user_message = request_json["message"]
-    message_history = request_json['history']
+    message_history = request_json["history"]
     print("User Message: ", user_message)
     print("Message History: ", message_history)
 

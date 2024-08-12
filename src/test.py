@@ -17,8 +17,8 @@ import os
 class TestRunQuery(unittest.IsolatedAsyncioTestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        os.environ["OPENAI_API_KEY"] = get_config_env()['OPENAI_API_KEY']
-    
+        os.environ["OPENAI_API_KEY"] = get_config_env()["OPENAI_API_KEY"]
+
     async def test_run_query_returns_true_scope(self):
         result = await run_query(
             "Are PartSelect dishwashers worth the money?", QueryType.IN_SCOPE
