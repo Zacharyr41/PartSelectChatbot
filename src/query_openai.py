@@ -24,7 +24,7 @@ def qt_to_filepath(qt: QueryType) -> str:
     return rv
 
 
-async def run_query(query_text: str, qt: QueryType) -> str:
+async def run_query(query_text: str, qt: QueryType, message_history=[]) -> str:
     prompt_filename = qt_to_filepath(qt=qt)
     with open(prompt_filename, "r") as prompt_file:
         prompt = prompt_file.read()
@@ -33,9 +33,13 @@ async def run_query(query_text: str, qt: QueryType) -> str:
 
     client = OpenAI()
     message_list = [{"role": "user", "content": prompt}]
+    if message_history:
+        messages_except_last = message_history[:-1]
+        message_list = messages_except_last + message_list    
 
     completion = client.chat.completions.create(
         model=cts.GPT_MODEL, messages=message_list
     )
 
     return completion.choices[0].message
+

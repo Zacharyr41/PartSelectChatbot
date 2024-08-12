@@ -48,7 +48,8 @@ async def chat(request):
     )
 
     # Prompt in scope
-    in_scope = await run_query(query_text=user_message, qt=QueryType.IN_SCOPE)
+    scope_message = str(message_history)
+    in_scope = await run_query(query_text=scope_message, qt=QueryType.IN_SCOPE)
     print("IN SCOPE: ", in_scope)
     if in_scope.content == "TRUE":
         cur_prompt.in_scope = True
