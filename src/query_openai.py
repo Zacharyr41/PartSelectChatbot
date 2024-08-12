@@ -33,7 +33,7 @@ async def run_query(query_text: str, qt: QueryType, message_history=[]) -> str:
 
     client = OpenAI()
     message_list = [{"role": "user", "content": prompt}]
-    if message_history:
+    if len(message_history) > 0:
         messages_except_last = message_history[:-1]
         message_list = messages_except_last + message_list
         print("The Message List: ", message_list)
