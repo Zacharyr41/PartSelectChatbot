@@ -33,7 +33,7 @@ async def chat(request):
     """
     request_json = request.json
     user_message = request_json["message"]
-    message_history = request_json["history"]
+    message_history = request_json['history']
     print("User Message: ", user_message)
     print("Message History: ", message_history)
 
@@ -113,7 +113,8 @@ async def chat(request):
     answer_prompt_text += user_message
 
     print("Querying for answer")
-    chat_response = await run_query(query_text=answer_prompt_text, qt=QueryType.MAIN)
+    print("/chat received history of: ", message_history)
+    chat_response = await run_query(query_text=answer_prompt_text, qt=QueryType.MAIN, message_history=message_history)
     result = chat_response.content
     print("Final Result: ", result)
 
