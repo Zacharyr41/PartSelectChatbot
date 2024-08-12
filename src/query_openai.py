@@ -25,6 +25,7 @@ def qt_to_filepath(qt: QueryType) -> str:
 
 
 async def run_query(query_text: str, qt: QueryType, message_history=[]) -> str:
+    print("Running query!")
     prompt_filename = qt_to_filepath(qt=qt)
     with open(prompt_filename, "r") as prompt_file:
         prompt = prompt_file.read()
